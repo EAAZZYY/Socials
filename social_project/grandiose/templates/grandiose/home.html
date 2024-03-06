@@ -1,0 +1,71 @@
+{% extends "user_accounts/base.html" %} {% load static %} {% block base %}
+<a href="{% url 'grandiose:post' %}">Create Post</a>
+<h1>GRANDIOSE</h1>
+<div>
+  {% for post in all_post %}
+  <div>
+    <img
+      src="{{ post.posted_by.profile.profile_pic.url }}"
+      alt=""
+      width="40px"
+    />
+    <span style="margin-left: 10px">{{ post.posted_by.username | upper }}</span>
+  </div>
+  <div>
+    <h2>{{ post.title }}</h2>
+    <img src="{{post.image.url}}" alt="" style="width: 150px" />
+    <p>{{ post.caption }}</p>
+
+    <div>
+      <form method="POST">
+        {% csrf_token %}
+        <label for="comment">Comment</label>
+        <input type="text" name="comment" />
+        <input type="hidden" name="post_id" id="post_id" value="{{post.id}}" />
+        <button type="submit">Comment</button>
+      </form>
+    </div>
+    
+    <small>{{ post.posted_on }}</small>
+    <div style="margin-bottom: 20px">
+      <a id="{{ post.id }}" class="btn_like">
+        {% if logged_user in post.liked_by.all %}
+        <img
+          src="{% static 'grandiose/blue_heart.png' %}"
+          alt=""
+          style="width: 20px"
+        />
+
+        {% else %}
+        <img
+          src="{% static 'grandiose/heart_icon.png' %}"
+          alt=""
+          style="width: 20px"
+        />
+
+        {% endif %}
+        <small>{{post.liked_by.count}}</small>
+      </a>
+      <img
+        src="{% static 'grandiose/share_icon.png' %}"
+        alt=""
+        style="width: 20px"
+      />
+      <img
+        src="{% static 'grandiose/comment.png' %}"
+        alt=""
+        style="width: 20px"
+      />
+    </div>
+  </div>
+<div>
+  {% for comment in post.comments.all %}
+  {{ comment.comment }}
+  {% endfor %}
+
+</div>
+  {% endfor %}
+</div>
+
+{%endblock %}
+</div>

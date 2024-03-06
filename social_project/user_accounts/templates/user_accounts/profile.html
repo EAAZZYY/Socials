@@ -1,0 +1,7 @@
+{% extends "user_accounts/base.html" %} {% block base %}
+<a href="{% url 'password_change' %}">Change Password</a>
+<a href="{% url 'profile_edit' %}">Edit profile</a>
+<h1>PROFILE.HTML</h1>
+<h1>Username: {{user.username}}</h1>
+<img src="{{ user.profile.profile_pic.url }}" alt="" style="width: 30px" />
+{% endblock %}

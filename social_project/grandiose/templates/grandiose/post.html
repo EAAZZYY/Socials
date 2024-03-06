@@ -1,0 +1,9 @@
+{% extends "user_accounts/base.html" %} {% block base %}
+<div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} {{ post.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

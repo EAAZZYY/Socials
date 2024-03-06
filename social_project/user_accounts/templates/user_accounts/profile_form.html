@@ -1,0 +1,11 @@
+{% extends "user_accounts/base.html" %} {% block base %}
+<a href="{% url 'password_change' %}">Change Password</a>
+<h1>PROFILE.HTML</h1>
+<div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
